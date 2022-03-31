@@ -6,10 +6,9 @@ load_dotenv(".env")
 BOT_TOKEN = os.environ["BOT_TOKEN"]
 DATABASE = os.environ["DATABASE"]
 
-CHANNEL_URL = os.environ["CHANNEL_URL"]
-CHANNEL_ID = os.environ["CHANNEL_ID"]
-CHAT_ID = os.environ["CHAT_ID"]
-
+admins = [
+	381252111,
+]
 
 async def load_admins() -> tuple:
     return tuple(map(int, environ["ADMINS"].split(",")))
