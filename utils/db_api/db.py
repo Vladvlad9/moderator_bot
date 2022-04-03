@@ -11,16 +11,21 @@ class DBApi(object):
     async def create_users_table(self) -> None:
         """CREATE USER TABLES"""
         self.__cur.execute('''
-            CREATE TABLE "users" (
-            "id"	INTEGER NOT NULL,
-            "id_post"	INTEGER,
-            "text_post"	TEXT,
-            "id_user"	INTEGER,
-            "txt_user_comment"	TEXT,
-            "username"	TEXT,
-            PRIMARY KEY("id" AUTOINCREMENT)
+            CREATE TABLE IF NOT EXISTS users2 (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id_post	INTEGER,
+            name_post TEXT,
+            id_user	INTEGER,
+            txt_user_comment TEXT,
+            "username" TEXT
         );
         ''')
+        self.__conn.commit()
+
+    async def delete_table(self):
+        self.__cur.execute('''
+                    DROP TABLE users2
+                ''')
         self.__conn.commit()
 
     async def add_user(self, id_post: int, text_post: str, id_user: int, txt_user_comment: str, username: str) -> bool:
@@ -28,7 +33,7 @@ class DBApi(object):
         try:
             self.__cur.execute('''
                 INSERT INTO
-                users(
+                users2(
                     id_post,
                     name_post,
                     id_user,
@@ -48,7 +53,7 @@ class DBApi(object):
         try:
             self.__cur.execute('''
                 INSERT INTO
-                users(
+                users2(
                     id_post,
                     name_post,
                     id_user,
@@ -81,4 +86,4 @@ class DBApi(object):
 
     async def create_all_database(self) -> None:
         """CREATE DATABASE"""
-        await self.create_users_table()
+        #await self.create_users_table()
