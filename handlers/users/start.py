@@ -8,7 +8,6 @@ from loader import dp, db
 @dp.message_handler(CommandStart())
 async def bot_start(message: types.Message):
     await message.answer(f'Привет, {message.from_user.full_name}!', reply_markup = await winner_kb())
-    await db.create_users_table()
 
 
 @dp.message_handler(chat_type=types.ChatType.SUPERGROUP)
