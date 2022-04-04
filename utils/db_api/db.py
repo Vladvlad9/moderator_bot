@@ -76,12 +76,16 @@ class DBApi(object):
         ''', (id_user, txt_user_comment, username, id_post))
         self.__conn.commit()
 
-    async def count_users(self, name_post: str):
-        result = f'SELECT COUNT(*) FROM users WHERE name_post = "{name_post}"'
+    async def count_users(self, id_post: str):
+        result = f'SELECT COUNT(*) FROM users2 WHERE id_post = "{id_post}"'
         return self.__cur.execute(result).fetchone()
 
-    async def user_winner(self, id: int, name_post: str):
-        result = f'SELECT username, txt_user_comment FROM users WHERE id = {id} and name_post = "{name_post}"'
+    async def user_winner(self, id: int, id_post: str):
+        result = f'SELECT username, txt_user_comment FROM users2 WHERE id = {id} and id_post = "{id_post}"'
+        return self.__cur.execute(result).fetchall()
+
+    async def get_id_post(self):
+        result = f'SELECT id_post FROM users2 WHERE id = 1'
         return self.__cur.execute(result).fetchall()
 
     async def create_all_database(self) -> None:
